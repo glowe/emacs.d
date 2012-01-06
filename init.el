@@ -6,6 +6,9 @@
 (require 'cl)
 (require 'package)
 
+(add-to-list 'load-path "/opt/local/share/emacs/site-list")
+(require 'xcscope)
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Customizations ;;
 ;;;;;;;;;;;;;;;;;;;;
