@@ -2,11 +2,11 @@
 ;; Requires ;;
 ;;;;;;;;;;;;;;
 
+(add-to-list 'load-path "~/.emacs.d/lib")
+
 (require 'cc-mode)
 (require 'cl)
 (require 'package)
-
-(add-to-list 'load-path "/opt/local/share/emacs/site-list")
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;
