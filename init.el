@@ -1,3 +1,26 @@
+
+;;;;;;;;;;;;;;;;
+;; Path setup ;;
+;;;;;;;;;;;;;;;;
+
+(defun read-file-lines (file)
+  "Return a list of lines in FILE."
+  (with-temp-buffer
+    (condition-case nil (insert-file-contents file) (file-error nil))
+    (split-string
+     (buffer-string) "\n" t)))
+
+;; Prepend paths in /etc/paths.d/ to our PATH environment variable.
+(let* ((paths-dir (file-name-as-directory "/etc/paths.d"))
+       (paths-dir-list1 (condition-case nil (directory-files paths-dir) (file-error nil)))
+       (paths-dir-list2 (remove-if #'(lambda (s) (or (string= s ".") (string= s ".."))) paths-dir-list1))
+       (paths-filenames (mapcar #'(lambda (s) (concat paths-dir s)) paths-dir-list2))
+       (paths (apply #'append (mapcar #'read-file-lines paths-filenames)))
+       (paths (nconc paths (list (getenv "PATH"))))
+       (paths (nconc paths (read-file-lines "/etc/paths")))
+       (path-string (mapconcat #'identity paths ":")))
+  (setenv "PATH" path-string))
+
 ;;;;;;;;;;;;;;
 ;; Requires ;;
 ;;;;;;;;;;;;;;
