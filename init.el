@@ -6,12 +6,15 @@
 
 (require 'cc-mode)
 (require 'cl)
+(require 'go-mode)
 (require 'package)
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Customizations ;;
 ;;;;;;;;;;;;;;;;;;;;
+
+(gofmt-before-save)
 
 (add-to-list
  'package-archives
