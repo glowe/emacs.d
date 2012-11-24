@@ -16,7 +16,7 @@
 (add-to-list
  'package-archives
  '("marmalade" . "http://marmalade-repo.org/packages/"))
-(set-default-font "Monaco-18")
+(set-default-font "Menlo-16")
 ;; Although I find backup files annoying, sometimes they are useful.
 ;; The least evil thing to do is keep them in one place.
 (setq backup-directory-alist
