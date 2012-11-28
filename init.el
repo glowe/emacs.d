@@ -9,8 +9,11 @@
 (require 'package)
 (require 'xcscope)
 
+;; The following packages are installed via package
 (package-initialize)
 (require 'go-mode)
+(require 'color-theme)
+
 
 ;;;;;;;;;;;;;;;;
 ;; Path setup ;;
@@ -48,7 +51,6 @@
 (add-to-list
  'package-archives
  '("marmalade" . "http://marmalade-repo.org/packages/"))
-(set-default-font "Source Code Pro-14")
 ;; Enable downcase a region
 (put 'downcase-region 'disabled nil)
 ;; For tunnel vision superpowers.
@@ -93,4 +95,16 @@
 ;; Startup ;;
 ;;;;;;;;;;;;;
 
-(server-start)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (solarized-light)))
+ '(custom-safe-themes (quote ("d2622a2a2966905a5237b54f35996ca6fda2f79a9253d44793cfe31079e3c92b" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#fdf6e3" :foreground "#657b83" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "apple" :family "Source Code Pro")))))
