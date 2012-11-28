@@ -1,3 +1,16 @@
+;;;;;;;;;;;;;;
+;; Requires ;;
+;;;;;;;;;;;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib")
+
+(require 'cc-mode)
+(require 'cl)
+(require 'package)
+(require 'xcscope)
+
+(package-initialize)
+(require 'go-mode)
 
 ;;;;;;;;;;;;;;;;
 ;; Path setup ;;
@@ -21,32 +34,21 @@
        (path-string (mapconcat #'identity paths ":")))
   (setenv "PATH" path-string))
 
-;;;;;;;;;;;;;;
-;; Requires ;;
-;;;;;;;;;;;;;;
-
-(add-to-list 'load-path "~/.emacs.d/lib")
-
-(require 'cc-mode)
-(require 'cl)
-(require 'go-mode)
-(require 'package)
-(require 'xcscope)
-
 ;;;;;;;;;;;;;;;;;;;;
 ;; Customizations ;;
 ;;;;;;;;;;;;;;;;;;;;
 
-(gofmt-before-save)
+(add-hook 'before-save-hook #'gofmt-before-save)
+
+;; Experiment: See if disabling backups and autosave files helps
+;; minimize the frequency with which emacs locks up.
+(setq backup-inhibited t)
+(setq auto-save-default nil)
 
 (add-to-list
  'package-archives
  '("marmalade" . "http://marmalade-repo.org/packages/"))
-(set-default-font "Menlo-16")
-;; Although I find backup files annoying, sometimes they are useful.
-;; The least evil thing to do is keep them in one place.
-(setq backup-directory-alist
-      (cons (cons "." (expand-file-name "~/tmp/backups")) nil))
+(set-default-font "Source Code Pro-14")
 ;; Enable downcase a region
 (put 'downcase-region 'disabled nil)
 ;; For tunnel vision superpowers.
