@@ -84,12 +84,11 @@
 ;;;;;;;;;;;;;;
 
 ;; Keep the fingers on the Control key is superior than using meta
-(global-set-key [?\C-x ?\C-m] 'execute-extended-command)
-;; Override the default key binding: only delete ws _ahead_ of
-;; point.
-(global-set-key [?\M-\\] 'c-hungry-delete-forward)
+(define-key global-map (kbd "C-x C-m") 'execute-extended-command)
+;; Override the default key binding: only delete ws _ahead_ of point.
+(define-key global-map (kbd "M-\\") 'c-hungry-delete-forward)
 (define-key global-map (kbd "RET") 'newline-and-indent)
-(define-key global-map "\C-x\C-a" 'kmacro-call-macro)
+(define-key global-map (kbd "C-x C-a") 'kmacro-call-macro)
 
 ;;;;;;;;;;;;;
 ;; Startup ;;
