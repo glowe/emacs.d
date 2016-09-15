@@ -9,21 +9,53 @@
 
 ;; This saves me from having to contort my fingers to reach Meta-x.
 (define-key global-map (kbd "C-x C-m") 'execute-extended-command)
-;; Override the default key binding: only delete ws _ahead_ of point.
-(define-key global-map (kbd "M-\\") 'c-hungry-delete-forward)
 
 
 ;; Setup `package'.
 (require 'package)
+
+;; tells emacs not to load any packages before starting up
 (setq package-enable-at-startup nil)
+;; the following lines tell emacs where on the internet to look up
+;; for new packages.
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '(("org"       . "http://orgmode.org/elpa/")
+               ("gnu"       . "http://elpa.gnu.org/packages/")
+               ("melpa"     . "https://melpa.org/packages/")
+               ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap `use-package'.
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(require 'use-package)
+
+(use-package general :ensure t)
+
+(use-package swiper
+  :ensure t
+  :config (progn
+	    (setq ivy-use-virtual-buffers t)
+	    (setq ivy-count-format "(%d/%d) ")
+	    (general-define-key
+	     "C-s" 'swiper
+	     "M-x" 'counsel-M-x
+	     "C-x C-f" 'counsel-find-file
+	     "<f1> f" 'counsel-describe-function
+	     "<f1> v" 'counsel-describe-variable
+	     "<f1> l" 'counsel-load-library
+	     "<f2> i" 'counsel-info-lookup-symbol
+	     "<f2> u" 'counsel-unicode-char
+	     ;; shell and system tools
+	     "C-c g" 'counsel-git
+	     "C-c j" 'counsel-git-grep
+	     "C-c k" 'counsel-ag
+	     "C-x l" 'counsel-locate
+	     ;; resume
+	     "C-c C-r" 'ivy-resume
+	     )))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -81,21 +113,6 @@
 (use-package magit
   :ensure t)
 
-(use-package helm
-  :ensure t
-  :init (helm-mode 1)
-  :bind (
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("C-x m" . helm-M-x)
-         ("M-y" . helm-show-kill-ring)
-         ("C-x r b" . helm-bookmarks)
-         (:map helm-mode-map
-               "<tab>" . helm-execute-persistent-action))
-  :diminish helm-mode)
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-
 (use-package rust-mode
   :ensure t
   :init (add-hook 'rust-mode-hook
@@ -110,30 +127,44 @@
 (use-package yasnippet
   :ensure t)
 
-(use-package nand2tetris
-  :ensure t)
-
 (use-package flycheck-rust
   :ensure t
   :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+(use-package company
+  :ensure t
+  :pin melpa)
 
 (use-package racer
   :ensure t
   :config (progn
             (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
-            (setq racer-rust-src-path "/Users/gl/Code/rust/src") ;; Rust source code PATH
+            (setq racer-rust-src-path "~/Code/rust/src") ;; Rust source code PATH
             )
   :init (progn
           (add-hook 'rust-mode-hook #'racer-mode)
           (add-hook 'racer-mode-hook #'eldoc-mode)
-          (add-hook 'racer-mode-hook #'company-mode)))
+          (add-hook 'racer-mode-hook #'company-mode)
+          (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+          (setq company-tooltip-align-annotations t)
+          ))
 
-(set-frame-font "Input Mono-14")
+(when (image-type-available-p 'xpm)
+  (use-package powerline
+      :config
+    (setq powerline-display-buffer-size nil)
+    (setq powerline-display-mule-info nil)
+    (setq powerline-display-hud nil)
+    (when (display-graphic-p)
+      (powerline-default-theme))))
+
+(set-frame-font "Fantasque Sans Mono-16")
 (setq column-number-mode t)
 (setq dired-recursive-deletes 'top)
 (tool-bar-mode -1)
 (setq-default indent-tabs-mode nil)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+(put 'narrow-to-region 'disabled nil)
 
 (provide 'init)
-;;; init.el ends here
-(put 'narrow-to-region 'disabled nil)
