@@ -160,7 +160,8 @@
 
 (when (image-type-available-p 'xpm)
   (use-package powerline
-      :config
+    :ensure t
+    :config
     (setq powerline-display-buffer-size nil)
     (setq powerline-display-mule-info nil)
     (setq powerline-display-hud nil)
