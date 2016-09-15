@@ -19,10 +19,10 @@
 ;; the following lines tell emacs where on the internet to look up
 ;; for new packages.
 (setq package-archives
-      '(("melpa"     . "https://melpa.org/packages/")
+      '(("melpa"     . "http://melpa.org/packages/")
         ("org"       . "http://orgmode.org/elpa/")
         ("gnu"       . "http://elpa.gnu.org/packages/")
-        ("marmalade" . "https://marmalade-repo.org/packages/")))
+        ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap `use-package'.
