@@ -18,11 +18,11 @@
 (setq package-enable-at-startup nil)
 ;; the following lines tell emacs where on the internet to look up
 ;; for new packages.
-(add-to-list 'package-archives
-             '(("org"       . "http://orgmode.org/elpa/")
-               ("gnu"       . "http://elpa.gnu.org/packages/")
-               ("melpa"     . "https://melpa.org/packages/")
-               ("marmalade" . "http://marmalade-repo.org/packages/")))
+(setq package-archives
+      '(("melpa"     . "https://melpa.org/packages/")
+        ("org"       . "http://orgmode.org/elpa/")
+        ("gnu"       . "http://elpa.gnu.org/packages/")
+        ("marmalade" . "https://marmalade-repo.org/packages/")))
 (package-initialize)
 
 ;; Bootstrap `use-package'.
@@ -34,28 +34,37 @@
 
 (use-package general :ensure t)
 
+(use-package hydra :ensure t)
+
+(use-package counsel
+  :ensure t
+  :pin melpa
+  :config (general-define-key
+           "M-x" 'counsel-M-x
+           "C-x C-f" 'counsel-find-file
+           "<f1> f" 'counsel-describe-function
+           "<f1> v" 'counsel-describe-variable
+           "<f1> l" 'counsel-load-library
+           "<f2> i" 'counsel-info-lookup-symbol
+           "<f2> u" 'counsel-unicode-char
+           ;; shell and system tools
+           "C-c g" 'counsel-git
+           "C-c j" 'counsel-git-grep
+           "C-c k" 'counsel-ag
+           "C-x l" 'counsel-locate
+           ))
+
 (use-package swiper
   :ensure t
+  :pin melpa
   :config (progn
-	    (setq ivy-use-virtual-buffers t)
-	    (setq ivy-count-format "(%d/%d) ")
-	    (general-define-key
-	     "C-s" 'swiper
-	     "M-x" 'counsel-M-x
-	     "C-x C-f" 'counsel-find-file
-	     "<f1> f" 'counsel-describe-function
-	     "<f1> v" 'counsel-describe-variable
-	     "<f1> l" 'counsel-load-library
-	     "<f2> i" 'counsel-info-lookup-symbol
-	     "<f2> u" 'counsel-unicode-char
-	     ;; shell and system tools
-	     "C-c g" 'counsel-git
-	     "C-c j" 'counsel-git-grep
-	     "C-c k" 'counsel-ag
-	     "C-x l" 'counsel-locate
-	     ;; resume
-	     "C-c C-r" 'ivy-resume
-	     )))
+            (setq ivy-use-virtual-buffers t)
+            (setq ivy-count-format "(%d/%d) ")
+            (general-define-key
+             "C-s" 'swiper
+             ;; resume
+             "C-c C-r" 'ivy-resume
+             )))
 
 (use-package exec-path-from-shell
   :ensure t
