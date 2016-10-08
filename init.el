@@ -174,6 +174,13 @@
 (put 'narrow-to-region 'disabled nil)
 (set-scroll-bar-mode nil)
 
+;; save backups to temp directory
+;; https://www.emacswiki.org/emacs/BackupDirectory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 
 (provide 'init)
 (custom-set-variables
