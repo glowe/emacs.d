@@ -172,6 +172,8 @@
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
 (put 'narrow-to-region 'disabled nil)
+(set-scroll-bar-mode nil)
+
 
 (provide 'init)
 (custom-set-variables
