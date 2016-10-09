@@ -144,15 +144,13 @@
 (use-package racer
   :ensure t
   :config (progn
-            (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
-            (setq racer-rust-src-path "~/Code/rust/src") ;; Rust source code PATH
-            )
-  :init (progn
-          (add-hook 'rust-mode-hook #'racer-mode)
-          (add-hook 'racer-mode-hook #'eldoc-mode)
-          (add-hook 'racer-mode-hook #'company-mode)
-          (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-          (setq company-tooltip-align-annotations t)
+            (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
+            (setq racer-rust-src-path (expand-file-name "~/Code/rust/src")) ;; Rust source code PATH
+            (add-hook 'rust-mode-hook #'racer-mode)
+            (add-hook 'racer-mode-hook #'eldoc-mode)
+            (add-hook 'racer-mode-hook #'company-mode)
+            (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+            (setq company-tooltip-align-annotations t)
           ))
 
 (when (image-type-available-p 'xpm)
