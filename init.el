@@ -31,10 +31,11 @@
 
 (use-package theme-changer
   :ensure t
-  :config
+  :init
   (setq calendar-location-name "Toronto, ON")
   (setq calendar-latitude 43.8)
   (setq calendar-longitude -79.4)
+  :config
   (change-theme 'sanityinc-tomorrow-day 'sanityinc-tomorrow-night))
 
 (use-package general :ensure t)
@@ -192,7 +193,6 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#eaeaea" "#d54e53" "#b9ca4a" "#e7c547" "#7aa6da" "#c397d8" "#70c0b1" "#424242"))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-day)))
  '(custom-safe-themes
    (quote
     ("bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
